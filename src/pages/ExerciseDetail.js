@@ -10,7 +10,6 @@ const ExerciseDetail = () => {
   const [exerciseDetail, setExerciseDetail] = useState({});
   const [exerciseVideo, setExerciseVideo] = useState([]);
   const { id } = useParams(); // to get the id from the url
-
   useEffect(() => {
     const fetchExerciseData = async () => {
       const exerciseDBUrl = "https://exercisedb.p.rapidapi.com";
@@ -20,8 +19,8 @@ const ExerciseDetail = () => {
       const exerciseDetailData = await fetchData(`${exerciseDBUrl}/exercises/exercise/${id}`, options);
       setExerciseDetail(exerciseDetailData);
 
-      const exerciseVideoData = await fetchData(`${youtubeSearchUrl}/search?q=${exerciseDetail.name}`, youtubeOptions);
-      setExerciseVideo(exerciseVideoData);
+      const exerciseVideoData = await fetchData(`${youtubeSearchUrl}/search?query=${exerciseDetail.name}`, youtubeOptions);
+      setExerciseVideo(exerciseVideoData.contents);
     };
     fetchExerciseData();
   }, [id]);
